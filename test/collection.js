@@ -488,6 +488,15 @@
     equal(counter, 1);
   });
 
+  test("notmodified success preserves collection", 1, function() {
+    var models = [{id:1},{id:2}];
+    var collection = new Backbone.Collection(models);
+    collection.url = '/test';
+    collection.fetch({ifModified: true});
+    this.syncArgs.options.success([], 'notmodified');
+    equal(2, collection.size());
+  });
+
   test("create", 4, function() {
     var collection = new Backbone.Collection;
     collection.url = '/test';
